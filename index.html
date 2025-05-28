@@ -958,6 +958,7 @@
       let programData = {};
       let lastCombinationSuppliers = '';
       let combinationDetails = []; // Array per salvare i dettagli completi delle combinazioni
+      let combinationSupplierIndexes = []; // Array per tenere traccia degli indici dei fornitori in combinazione
       let sumDetailsSeconda = {};
       let sumDetailsTorchiato = {};
       let chartsInitialized = false;
@@ -1245,6 +1246,7 @@
           const indexes = selectedCombo.split(',');
           let totale = 0;
           combinationDetails = []; // Reset array dettagli combinazioni
+          combinationSupplierIndexes = indexes.map(i => parseInt(i)); // Salva gli indici dei fornitori in combinazione
           
           indexes.forEach(index => {
               const supplierRow = $(`[data-supplier-index="${index}"]`);
@@ -1295,6 +1297,7 @@
                   noteElement.html(`Valore da combinazione fornitori:<br/>${detailedCombination}`);
               }
               
+              alert(`Combinazione applicata! Quantità succo 1ª dell'ultimo fornitore incluso aggiornata a ${totale.toFixed(1)} kg\n\nDettaglio combinazione:\n${combinationDetails.map(d => `${d.nome} [${d.certificazione}|${d.linea}]: ${d.quantita}kg × ${d.resa}%
               alert(`Combinazione applicata! Quantità succo 1ª dell'ultimo fornitore incluso aggiornata a ${totale.toFixed(1)} kg\n\nDettaglio combinazione:\n${combinationDetails.map(d => `${d.nome} [${d.certificazione}|${d.linea}]: ${d.quantita}kg × ${d.resa}% = ${d.risultato}kg`).join('\n')}`);
           } else {
               alert('Nessun fornitore disponibile per applicare la combinazione');
@@ -1324,6 +1327,7 @@
           // Reset delle variabili memorizzate
           lastCombinationSuppliers = '';
           combinationDetails = [];
+          combinationSupplierIndexes = [];
           
           alert('Combinazione rimossa. I valori del succo 1ª sono stati ricalcolati in base alle rese.');
       }
@@ -1798,12 +1802,7 @@
           // Inizializza i grafici
           const ctxFornitori = document.getElementById('chartFornitori').getContext('2d');
           const ctxRese = document.getElementById('chartRese').getContext('2d');
-          const ctxCertificazioni = document.getElementById('chartCertificazioni').getContext('2d');
-          const ctxTimeline = document.getElementById('chartTimeline').getContext('2d');
-          const ctxEfficienza = document.getElementById('chartEfficienza').getContext('2d');
-          const ctxDestinazioni = document.getElementById('chartDestinazioni').getContext('2d');
           
-          // Grafico Fornitori
           charts.fornitori = new Chart(ctxFornitori, {
               type: 'pie',
               data: {
@@ -1832,7 +1831,6 @@
               }
           });
           
-          // Grafico Rese
           charts.rese = new Chart(ctxRese, {
               type: 'bar',
               data: {
@@ -1854,15 +1852,11 @@
                   }
               }
           });
-          
-          // Altri grafici...
-          // (resto dell'inizializzazione grafici)
       }
       
       function updateStatistics() {
           const programData = collectProgramData();
           
-          // Aggiorna sommario
           const summaryHtml = `
               <div class="summary-item">
                   <div class="summary-value">${programData.fornitori.length}</div>
@@ -1883,7 +1877,6 @@
           `;
           $('#stats-summary').html(summaryHtml);
           
-          // Aggiorna grafici
           updateChartsData(programData);
       }
       
@@ -1903,7 +1896,6 @@
       }
       
       function updateChartsData(data) {
-          // Aggiorna grafico fornitori
           const fornitoriLabels = [];
           const fornitoriData = [];
           
@@ -1919,7 +1911,6 @@
           charts.fornitori.data.datasets[0].data = fornitoriData;
           charts.fornitori.update();
           
-          // Aggiorna grafico rese medie
           let resePrima = 0, reseSeconda = 0, reseTorchiato = 0;
           let countRese = 0, countBOE = 0;
           
@@ -1944,8 +1935,6 @@
               ];
           }
           charts.rese.update();
-          
-          // Altri aggiornamenti grafici...
       }
       
       // Raccolta dati programma
@@ -1959,6 +1948,7 @@
               ultimaRevisione: $('#last-revision').text(),
               lastCombinationSuppliers: lastCombinationSuppliers,
               combinationDetails: combinationDetails,
+              combinationSupplierIndexes: combinationSupplierIndexes,
               sumDetailsSeconda: sumDetailsSeconda,
               sumDetailsTorchiato: sumDetailsTorchiato,
               fornitori: []
@@ -1967,8 +1957,10 @@
           $('.supplier-row').each(function() {
               const destinazioniPrima = $(this).find('.destinazione-prima').val() || [];
               const linea = $(this).find('.linea-trasformazione').val();
+              const supplierIndex = parseInt($(this).data('supplier-index'));
               
               const fornitore = {
+                  supplierIndex: supplierIndex,
                   nome: $(this).find('.nome-fornitore').val(),
                   altroNome: $(this).find('.altro-fornitore').val(),
                   quantitaEntrata: parseFloat($(this).find('.quantita-fornitore').val()) || 0,
@@ -2044,17 +2036,17 @@
           return data;
       }
       
-      // Anteprima stampa COMPATTA - AGGIORNATA con le modifiche richieste
+      // Anteprima stampa COMPATTA - CORRETTA per evitare ripetizioni dei fornitori in combinazione
       $('#anteprima-stampa').click(function() {
           const programData = collectProgramData();
           generateCompactPrintPreview(programData);
       });
       
-      // Generazione anteprima stampa COMPATTA - VERSIONE CORRETTA CON LE MODIFICHE RICHIESTE
+      // Generazione anteprima stampa COMPATTA - VERSIONE CORRETTA
       function generateCompactPrintPreview(data) {
           const printWindow = window.open('', '_blank');
           
-          // Calcola totali per Succo 2ª e Torchiato (solo per linee BOE/1100)
+          // Calcola totali per Succo 2ª e Torchiato
           let totalSeconda = 0;
           let totalTorchiato = 0;
           
@@ -2205,14 +2197,6 @@
                           color: #666;
                       }
                       
-                      .combination-info {
-                          background-color: #fff3cd;
-                          padding: 6px;
-                          margin-bottom: 8px;
-                          border-left: 4px solid #ffc107;
-                          font-size: 8px;
-                      }
-                      
                       .footer {
                           text-align: center;
                           margin-top: 15px;
@@ -2279,7 +2263,7 @@
                       <tbody>
           `;
           
-          // Sezione combinazioni se presenti - MODIFICATA per mostrare tutti i dati dei fornitori
+          // Sezione combinazioni se presenti
           if (data.combinationDetails && data.combinationDetails.length > 0) {
               printContent += `
                   <tr class="combination-header">
@@ -2343,26 +2327,52 @@
                   }
               });
               
-              // Riga totale combinazione
+              // Riga totale combinazione - MODIFICATA per sostituire "Somma delle contribuzioni individuali"
+              // con i dati dell'ultimo fornitore nella combinazione
               const totaleCombinazione = data.combinationDetails.reduce((sum, detail) => sum + parseFloat(detail.risultato), 0);
-              printContent += `
-                  <tr class="combination-group">
-                      <td colspan="9"><strong>TOTALE COMBINAZIONE</strong></td>
-                      <td><strong>${totaleCombinazione.toFixed(1)}</strong></td>
-                      <td colspan="6">Somma delle contribuzioni individuali</td>
-                  </tr>
-              `;
+              
+              // Trova l'ultimo fornitore nella combinazione per prendere i suoi dati
+              const lastCombinationSupplier = data.fornitori.find(f => f.hasCombination);
+              if (lastCombinationSupplier) {
+                  const pastorizzatoTotale = lastCombinationSupplier.caratteristicheProdotti?.prima?.pastorizzato || 'N/D';
+                  const polpaTotale = lastCombinationSupplier.caratteristicheProdotti?.prima?.tenorePolpa || 'N/D';
+                  const brixTotale = lastCombinationSupplier.caratteristicheProdotti?.prima?.brix || 'N/D';
+                  const conservatoTotale = lastCombinationSupplier.caratteristicheProdotti?.prima?.conservato || 'N/D';
+                  const bioTotale = lastCombinationSupplier.caratteristicheProdotti?.prima?.bio || 'N/D';
+                  
+                  let destTotale = lastCombinationSupplier.destinazioni.prima || 'N/D';
+                  if (destTotale.includes('ALTRO') && lastCombinationSupplier.destinazioni.primaAltro) {
+                      destTotale = destTotale.replace('ALTRO', lastCombinationSupplier.destinazioni.primaAltro);
+                  }
+                  destTotale = destTotale.split(', ').map(d => 
+                      d.replace('CONCENTRATO', 'CONC').replace('NAT IN TINI', 'TINI')
+                  ).join(',');
+                  
+                  printContent += `
+                      <tr class="combination-group">
+                          <td colspan="9"><strong>TOTALE COMBINAZIONE</strong></td>
+                          <td><strong>${totaleCombinazione.toFixed(1)}</strong></td>
+                          <td>${pastorizzatoTotale}</td>
+                          <td style="font-size: 7px;">${destTotale}</td>
+                          <td>${polpaTotale}</td>
+                          <td>${brixTotale}</td>
+                          <td>${conservatoTotale}</td>
+                          <td>${bioTotale}</td>
+                      </tr>
+                  `;
+              }
           }
           
-          // Genera righe fornitori normali (non combinati)
+          // Genera righe fornitori normali - CORRETTA per evitare ripetizioni
           data.fornitori.forEach((fornitore) => {
-              // Salta i fornitori che fanno parte della combinazione (tranne l'ultimo che mostra il totale)
-              const isInCombination = data.combinationDetails && data.combinationDetails.some(detail => 
-                  detail.nome === (fornitore.nome === 'ALTRO' ? fornitore.altroNome : fornitore.nome)
-              );
-              
               if (!fornitore.nome) return; // Salta fornitori senza nome
               
+              // Controlla se questo fornitore fa parte della combinazione
+              const isInCombination = data.combinationSupplierIndexes && 
+                  data.combinationSupplierIndexes.includes(fornitore.supplierIndex);
+              
+              // Se fa parte della combinazione, mostra solo se ha il valore combinato (è l'ultimo)
+              // Altrimenti non fa parte della combinazione, quindi mostralo sempre
               if (!isInCombination || fornitore.hasCombination) {
                   const nomeFornitore = fornitore.nome === 'ALTRO' ? fornitore.altroNome : fornitore.nome;
                   const nomeVarieta = fornitore.varieta === 'ALTRO' ? fornitore.altraVarieta : fornitore.varieta;
@@ -2435,7 +2445,7 @@
           const lastValidSupplierBOE = data.fornitori.filter(f => f.nome && f.lineaTrasformazione === 'BOE/1100').slice(-1)[0];
           const lastValidSupplier = data.fornitori.filter(f => f.nome).slice(-1)[0];
           
-          // Sezione riepilogo - MODIFICATA per rimuovere "(Solo linee BOE/1100)"
+          // Sezione riepilogo
           if (totalSeconda > 0 && lastValidSupplierBOE) {
               // Gestione destinazioni per sezioni riepilogo
               let destSeconda = lastValidSupplierBOE.destinazioni.seconda || 'N/D';
@@ -2690,4 +2700,4 @@
   });
 </script>
 </body>
-</html>
+</html>                                  
