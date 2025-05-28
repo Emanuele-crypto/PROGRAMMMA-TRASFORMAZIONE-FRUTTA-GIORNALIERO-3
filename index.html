@@ -721,7 +721,7 @@
                        <option value="REX">REX</option>
                        <option value="GOGLIO">GOGLIO</option>
                        <option value="VASCHETTE">VASCHETTE</option>
-                      <option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
+                       <option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
                       <option value="LATTE">LATTE</option>
                       <option value="F.F.">F.F.</option>
                       <option value="F.T.C">F.T.C</option>
@@ -1979,7 +1979,7 @@
                   varieta: $(this).find('.varieta-prodotto').val(),
                   altraVarieta: $(this).find('.altra-varieta').val(),
                   lineaTrasformazione: linea,
-portataImpianto: parseFloat($(this).find('.portata-impianto').val()) || 0,
+                  portataImpianto: parseFloat($(this).find('.portata-impianto').val()) || 0,
                   orarioInizio: $(this).find('.orario-inizio').val(),
                   orarioFineDisplay: $(this).find('.orario-fine-display').html(),
                   durataLavorazione: $(this).find('.durata-lavorazione').val(),
@@ -2561,8 +2561,6 @@ portataImpianto: parseFloat($(this).find('.portata-impianto').val()) || 0,
           }
           
           printContent += `
-                      <div
-                      printContent += `
                       <div class="footer">
                           <p>Documento generato automaticamente - Sistema di Gestione Produzione Simone Gatto</p>
                           <p>Ultima revisione: ${data.ultimaRevisione}</p>
