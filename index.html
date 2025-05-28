@@ -721,7 +721,7 @@
                        <option value="REX">REX</option>
                        <option value="GOGLIO">GOGLIO</option>
                        <option value="VASCHETTE">VASCHETTE</option>
-<option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
+                       <option value="VASCHETTE ZUCCHERATE">VASCHETTE ZUCCHERATE</option>
                       <option value="LATTE">LATTE</option>
                       <option value="F.F.">F.F.</option>
                       <option value="F.T.C">F.T.C</option>
@@ -1297,7 +1297,6 @@
                   noteElement.html(`Valore da combinazione fornitori:<br/>${detailedCombination}`);
               }
               
-              alert(`Combinazione applicata! Quantità succo 1ª dell'ultimo fornitore incluso aggiornata a ${totale.toFixed(1)} kg\n\nDettaglio combinazione:\n${combinationDetails.map(d => `${d.nome} [${d.certificazione}|${d.linea}]: ${d.quantita}kg × ${d.resa}%
               alert(`Combinazione applicata! Quantità succo 1ª dell'ultimo fornitore incluso aggiornata a ${totale.toFixed(1)} kg\n\nDettaglio combinazione:\n${combinationDetails.map(d => `${d.nome} [${d.certificazione}|${d.linea}]: ${d.quantita}kg × ${d.resa}% = ${d.risultato}kg`).join('\n')}`);
           } else {
               alert('Nessun fornitore disponibile per applicare la combinazione');
@@ -1970,7 +1969,7 @@
                   altraCertificazione: $(this).find('.altra-certificazione').val(),
                   varieta: $(this).find('.varieta-prodotto').val(),
                   altraVarieta: $(this).find('.altra-varieta').val(),
-                  lineaTrasformazione: linea,
+lineaTrasformazione: linea,
                   portataImpianto: parseFloat($(this).find('.portata-impianto').val()) || 0,
                   orarioInizio: $(this).find('.orario-inizio').val(),
                   orarioFineDisplay: $(this).find('.orario-fine-display').html(),
@@ -2539,8 +2538,6 @@
                           <div class="summary-box" style="grid-column: 1 / -1;">
                               <div class="summary-title">TOTALI TORCHIATO</div>
                               <div class="summary-item">
-                                  <span>Quantità Tot
-                                  <div class="summary-item">
                                   <span>Quantità Totale:</span>
                                   <span><strong>${totalTorchiato.toFixed(1)} kg</strong></span>
                               </div>
