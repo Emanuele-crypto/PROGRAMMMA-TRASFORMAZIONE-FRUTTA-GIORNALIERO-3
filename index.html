@@ -13,718 +13,723 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-   body {
-       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-       background-color: #f8f9fa;
-       padding: 20px;
-   }
-   
-   .main-header {
-       background: linear-gradient(135deg, #1e3c72, #2a5298);
-       color: white;
-       padding: 30px;
-       border-radius: 15px;
-       text-align: center;
-       margin-bottom: 30px;
-       box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-   }
-   
-   .section-card {
-       background: white;
-       border-radius: 12px;
-       padding: 25px;
-       margin-bottom: 25px;
-       box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-       border-left: 4px solid #2a5298;
-   }
-   
-   .section-title {
-       color: #1e3c72;
-       font-weight: 600;
-       margin-bottom: 20px;
-       padding-bottom: 10px;
-       border-bottom: 2px solid #e9ecef;
-   }
-   
-   .form-label {
-       font-weight: 600;
-       color: #495057;
-       margin-bottom: 8px;
-   }
-   
-   .form-control, .form-select {
-       border-radius: 8px;
-       border: 2px solid #e9ecef;
-       padding: 12px 15px;
-       font-size: 14px;
-       transition: all 0.3s ease;
-   }
-   
-   .form-control:focus, .form-select:focus {
-       border-color: #2a5298;
-       box-shadow: 0 0 0 0.2rem rgba(42, 82, 152, 0.25);
-   }
-   
-   .btn-primary {
-       background: linear-gradient(135deg, #1e3c72, #2a5298);
-       border: none;
-       border-radius: 8px;
-       padding: 12px 25px;
-       font-weight: 600;
-       transition: all 0.3s ease;
-   }
-   
-   .btn-primary:hover {
-       transform: translateY(-2px);
-       box-shadow: 0 5px 15px rgba(42, 82, 152, 0.4);
-   }
-   
-   .btn-success {
-       background: linear-gradient(135deg, #28a745, #20c997);
-       border: none;
-       border-radius: 8px;
-       padding: 8px 15px;
-       font-weight: 600;
-       transition: all 0.3s ease;
-   }
-   
-   .btn-success:hover {
-       transform: translateY(-2px);
-       box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
-   }
-   
-   .btn-warning {
-       background: linear-gradient(135deg, #ffc107, #ffb300);
-       border: none;
-       border-radius: 8px;
-       padding: 8px 15px;
-       font-weight: 600;
-       transition: all 0.3s ease;
-       color: #212529;
-   }
-   
-   .btn-warning:hover {
-       transform: translateY(-2px);
-       box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
-       color: #212529;
-   }
-   
-   .btn-info {
-       background: linear-gradient(135deg, #17a2b8, #20c997);
-       border: none;
-       border-radius: 8px;
-       padding: 12px 25px;
-       font-weight: 600;
-       transition: all 0.3s ease;
-       color: white;
-   }
-   
-   .btn-info:hover {
-       transform: translateY(-2px);
-       box-shadow: 0 5px 15px rgba(23, 162, 184, 0.4);
-       color: white;
-   }
-   
-   .calculated-field {
-       background-color: #e7f3ff;
-       border-color: #bee5eb;
-       font-weight: 600;
-   }
-   
-   .supplier-row {
-       background-color: #f8f9fa;
-       border-radius: 10px;
-       padding: 20px;
-       margin-bottom: 15px;
-       border: 1px solid #dee2e6;
-   }
-   
-   .bio-indicator {
-       background-color: #d4edda;
-       color: #155724;
-       padding: 3px 8px;
-       border-radius: 12px;
-       font-size: 12px;
-       font-weight: 600;
-   }
-   
-   .bio-red-text {
-       color: #dc3545 !important;
-       font-weight: 600;
-   }
-   
-   .bio-black-text {
-       color: #000000 !important;
-       font-weight: 600;
-   }
-   
-   .bio-red-field {
-       color: #dc3545 !important;
-       font-weight: 600;
-       border-color: #dc3545 !important;
-   }
-   
-   .alert-info {
-       border-left: 4px solid #0dcaf0;
-       background-color: #cff4fc;
-       border-radius: 8px;
-   }
-   
-   .table th {
-       background-color: #1e3c72;
-       color: white;
-       border: none;
-       font-weight: 600;
-   }
-   
-   .table td {
-       vertical-align: middle;
-       border-color: #e9ecef;
-   }
-   
-   .progress {
-       height: 8px;
-       border-radius: 4px;
-   }
-   
-   .hidden-field {
-       display: none;
-   }
-   
-   .time-display {
-       font-family: 'Courier New', monospace;
-       font-size: 16px;
-       font-weight: bold;
-       color: #1e3c72;
-   }
-   
-   .yield-result {
-       background-color: #e8f5e8;
-       border-color: #28a745;
-       font-weight: 600;
-       text-align: center;
-   }
-   
-   .revision-info {
-       font-size: 12px;
-       color: #6c757d;
-       margin-top: 10px;
-   }
-   
-   .supplier-selection {
-       background-color: #e8f5e8;
-       border: 2px solid #28a745;
-       border-radius: 8px;
-       padding: 15px;
-       margin-bottom: 15px;
-   }
-   
-   .next-day {
-       color: #dc3545;
-       font-weight: bold;
-       font-size: 12px;
-   }
-   
-   .combination-result {
-       background-color: #fff3cd;
-       border: 2px solid #ffc107;
-       font-weight: bold;
-       color: #856404;
-   }
-   
-   .combination-row {
-       background-color: #fff3cd !important;
-       border: 2px solid #ffc107 !important;
-   }
-   
-   .auto-sum-field {
-       background-color: #fffacd !important;
-       border: 2px solid #ffd700 !important;
-       font-weight: bold;
-   }
-   
-   .note-field {
-       min-height: 60px;
-       resize: vertical;
-   }
-   
-   .select2-container {
-       width: 100% !important;
-   }
-   
-   .select2-container--default .select2-selection--multiple {
-       border: 2px solid #e9ecef;
-       border-radius: 8px;
-       min-height: 45px;
-       padding: 5px;
-   }
-   
-   .select2-container--default.select2-container--focus .select2-selection--multiple {
-       border-color: #2a5298;
-       box-shadow: 0 0 0 0.2rem rgba(42, 82, 152, 0.25);
-   }
-   
-   .sum-details {
-       font-size: 11px;
-       color: #856404;
-       font-weight: normal;
-       margin-top: 5px;
-   }
-   
-   /* Stili per la pagina statistiche */
-   .stats-modal {
-       position: fixed;
-       top: 0;
-       left: 0;
-       width: 100%;
-       height: 100%;
-       background-color: rgba(0,0,0,0.5);
-       display: none;
-       z-index: 1000;
-       overflow-y: auto;
-   }
-   
-   .stats-content {
-       position: relative;
-       background-color: white;
-       margin: 2% auto;
-       padding: 20px;
-       width: 90%;
-       max-width: 1400px;
-       min-height: 90%;
-       border-radius: 15px;
-   }
-   
-   .stats-header {
-       background: linear-gradient(135deg, #1e3c72, #2a5298);
-       color: white;
-       padding: 20px;
-       border-radius: 10px;
-       margin-bottom: 20px;
-       display: flex;
-       justify-content: space-between;
-       align-items: center;
-   }
-   
-   .close-stats {
-       color: white;
-       font-size: 28px;
-       font-weight: bold;
-       cursor: pointer;
-   }
-   
-   .close-stats:hover {
-       color: #f0f0f0;
-   }
-   
-   .stats-grid {
-       display: grid;
-       grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-       gap: 20px;
-   }
-   
-   .stats-card {
-       background: white;
-       border-radius: 10px;
-       padding: 20px;
-       box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-       border-left: 4px solid #2a5298;
-   }
-   
-   .chart-container {
-       position: relative;
-       height: 300px;
-       margin-top: 20px;
-   }
-   
-   .stats-summary {
-       display: grid;
-       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-       gap: 15px;
-       margin-bottom: 30px;
-   }
-   
-   .summary-item {
-       background: linear-gradient(135deg, #e7f3ff, #f0f8ff);
-       padding: 20px;
-       border-radius: 10px;
-       text-align: center;
-       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-   }
-   
-   .summary-value {
-       font-size: 36px;
-       font-weight: bold;
-       color: #1e3c72;
-   }
-   
-   .summary-label {
-       font-size: 14px;
-       color: #6c757d;
-       margin-top: 5px;
-   }
+  body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      padding: 20px;
+  }
+  
+  .main-header {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+  
+  .section-card {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      border-left: 4px solid #2a5298;
+  }
+  
+  .section-title {
+      color: #1e3c72;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e9ecef;
+  }
+  
+  .form-label {
+      font-weight: 600;
+      color: #495057;
+      margin-bottom: 8px;
+  }
+  
+  .form-control, .form-select {
+      border-radius: 8px;
+      border: 2px solid #e9ecef;
+      padding: 12px 15px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+  }
+  
+  .form-control:focus, .form-select:focus {
+      border-color: #2a5298;
+      box-shadow: 0 0 0 0.2rem rgba(42, 82, 152, 0.25);
+  }
+  
+  .btn-primary {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      border: none;
+      border-radius: 8px;
+      padding: 12px 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(42, 82, 152, 0.4);
+  }
+  
+  .btn-success {
+      background: linear-gradient(135deg, #28a745, #20c997);
+      border: none;
+      border-radius: 8px;
+      padding: 8px 15px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+  }
+  
+  .btn-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+  }
+  
+  .btn-warning {
+      background: linear-gradient(135deg, #ffc107, #ffb300);
+      border: none;
+      border-radius: 8px;
+      padding: 8px 15px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      color: #212529;
+  }
+  
+  .btn-warning:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+      color: #212529;
+  }
+  
+  .btn-info {
+      background: linear-gradient(135deg, #17a2b8, #20c997);
+      border: none;
+      border-radius: 8px;
+      padding: 12px 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      color: white;
+  }
+  
+  .btn-info:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(23, 162, 184, 0.4);
+      color: white;
+  }
+  
+  .calculated-field {
+      background-color: #e7f3ff;
+      border-color: #bee5eb;
+      font-weight: 600;
+  }
+  
+  .supplier-row {
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 15px;
+      border: 1px solid #dee2e6;
+  }
+  
+  .bio-indicator {
+      background-color: #d4edda;
+      color: #155724;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+  }
+  
+  .bio-red-text {
+      color: #dc3545 !important;
+      font-weight: 600;
+  }
+  
+  .bio-black-text {
+      color: #000000 !important;
+      font-weight: 600;
+  }
+  
+  .bio-red-field {
+      color: #dc3545 !important;
+      font-weight: 600;
+      border-color: #dc3545 !important;
+  }
+  
+  .alert-info {
+      border-left: 4px solid #0dcaf0;
+      background-color: #cff4fc;
+      border-radius: 8px;
+  }
+  
+  .table th {
+      background-color: #1e3c72;
+      color: white;
+      border: none;
+      font-weight: 600;
+  }
+  
+  .table td {
+      vertical-align: middle;
+      border-color: #e9ecef;
+  }
+  
+  .progress {
+      height: 8px;
+      border-radius: 4px;
+  }
+  
+  .hidden-field {
+      display: none;
+  }
+  
+  .time-display {
+      font-family: 'Courier New', monospace;
+      font-size: 16px;
+      font-weight: bold;
+      color: #1e3c72;
+  }
+  
+  .yield-result {
+      background-color: #e8f5e8;
+      border-color: #28a745;
+      font-weight: 600;
+      text-align: center;
+  }
+  
+  .revision-info {
+      font-size: 12px;
+      color: #6c757d;
+      margin-top: 10px;
+  }
+  
+  .supplier-selection {
+      background-color: #e8f5e8;
+      border: 2px solid #28a745;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+  }
+  
+  .next-day {
+      color: #dc3545;
+      font-weight: bold;
+      font-size: 12px;
+  }
+  
+  .combination-result {
+      background-color: #fff3cd;
+      border: 2px solid #ffc107;
+      font-weight: bold;
+      color: #856404;
+  }
+  
+  .combination-row {
+      background-color: #fff3cd !important;
+      border: 2px solid #ffc107 !important;
+  }
+  
+  .combination-individual-row {
+      background-color: #fff3cd !important;
+      border: 1px solid #ffc107 !important;
+  }
+  
+  .auto-sum-field {
+      background-color: #fffacd !important;
+      border: 2px solid #ffd700 !important;
+      font-weight: bold;
+  }
+  
+  .note-field {
+      min-height: 60px;
+      resize: vertical;
+  }
+  
+  .select2-container {
+      width: 100% !important;
+  }
+  
+  .select2-container--default .select2-selection--multiple {
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      min-height: 45px;
+      padding: 5px;
+  }
+  
+  .select2-container--default.select2-container--focus .select2-selection--multiple {
+      border-color: #2a5298;
+      box-shadow: 0 0 0 0.2rem rgba(42, 82, 152, 0.25);
+  }
+  
+  .sum-details {
+      font-size: 11px;
+      color: #856404;
+      font-weight: normal;
+      margin-top: 5px;
+  }
+  
+  /* Stili per la pagina statistiche */
+  .stats-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      display: none;
+      z-index: 1000;
+      overflow-y: auto;
+  }
+  
+  .stats-content {
+      position: relative;
+      background-color: white;
+      margin: 2% auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 1400px;
+      min-height: 90%;
+      border-radius: 15px;
+  }
+  
+  .stats-header {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+  
+  .close-stats {
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+  }
+  
+  .close-stats:hover {
+      color: #f0f0f0;
+  }
+  
+  .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 20px;
+  }
+  
+  .stats-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      border-left: 4px solid #2a5298;
+  }
+  
+  .chart-container {
+      position: relative;
+      height: 300px;
+      margin-top: 20px;
+  }
+  
+  .stats-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+  }
+  
+  .summary-item {
+      background: linear-gradient(135deg, #e7f3ff, #f0f8ff);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+  
+  .summary-value {
+      font-size: 36px;
+      font-weight: bold;
+      color: #1e3c72;
+  }
+  
+  .summary-label {
+      font-size: 14px;
+      color: #6c757d;
+      margin-top: 5px;
+  }
 </style>
 </head>
 <body>
 <div class="container-fluid">
-   <!-- Header principale -->
-   <div class="main-header">
-       <h1><i class="bi bi-calendar-check"></i> PROGRAMMA GIORNALIERO TRASFORMAZIONE FRUTTA</h1>
-       <h4>Sistema di Gestione Produzione - Simone Gatto</h4>
-       <p class="mb-0">Data: <span id="current-date"></span></p>
-       <div class="revision-info">
-           Ultima revisione: <span id="last-revision"></span>
-       </div>
-   </div>
+  <!-- Header principale -->
+  <div class="main-header">
+      <h1><i class="bi bi-calendar-check"></i> PROGRAMMA GIORNALIERO TRASFORMAZIONE FRUTTA</h1>
+      <h4>Sistema di Gestione Produzione - Simone Gatto</h4>
+      <p class="mb-0">Data: <span id="current-date"></span></p>
+      <div class="revision-info">
+          Ultima revisione: <span id="last-revision"></span>
+      </div>
+  </div>
 
-   <!-- Sezione Selezione Tipo Agrume -->
-   <div class="section-card">
-       <h3 class="section-title"><i class="bi bi-gear-fill"></i> Tipo di Agrume</h3>
-       <div class="row">
-           <div class="col-md-6">
-               <label for="tipo-agrume-giornaliero" class="form-label">Seleziona Tipo di Agrume</label>
-               <select class="form-select" id="tipo-agrume-giornaliero" required>
-                   <option value="">Seleziona il tipo di agrume</option>
-                   <option value="LIMONE">Limone</option>
-                   <option value="ARANCIA">Arancia</option>
-                   <option value="MANDARINO">Mandarino</option>
-                   <option value="POMPELMO">Pompelmo</option>
-                   <option value="BERGAMOTTO">Bergamotto</option>
-               </select>
-           </div>
-           <div class="col-md-6">
-               <label for="data-lavorazione" class="form-label">Data Lavorazione</label>
-               <input type="date" class="form-control" id="data-lavorazione" required>
-           </div>
-       </div>
-   </div>
+  <!-- Sezione Selezione Tipo Agrume -->
+  <div class="section-card">
+      <h3 class="section-title"><i class="bi bi-gear-fill"></i> Tipo di Agrume</h3>
+      <div class="row">
+          <div class="col-md-6">
+              <label for="tipo-agrume-giornaliero" class="form-label">Seleziona Tipo di Agrume</label>
+              <select class="form-select" id="tipo-agrume-giornaliero" required>
+                  <option value="">Seleziona il tipo di agrume</option>
+                  <option value="LIMONE">Limone</option>
+                  <option value="ARANCIA">Arancia</option>
+                  <option value="MANDARINO">Mandarino</option>
+                  <option value="POMPELMO">Pompelmo</option>
+                  <option value="BERGAMOTTO">Bergamotto</option>
+              </select>
+          </div>
+          <div class="col-md-6">
+              <label for="data-lavorazione" class="form-label">Data Lavorazione</label>
+              <input type="date" class="form-control" id="data-lavorazione" required>
+          </div>
+      </div>
+  </div>
 
-   <!-- Sezione Totali -->
-   <div class="section-card">
-       <h3 class="section-title"><i class="bi bi-boxes"></i> Quantità Totali</h3>
-       <div class="row">
-           <div class="col-md-4">
-               <label for="entrata-giornaliera" class="form-label">Entrata Giornaliera Totale (kg)</label>
-               <input type="number" class="form-control calculated-field" id="entrata-giornaliera" readonly>
-           </div>
-           <div class="col-md-4">
-               <label for="trasformata-totale" class="form-label">Quantità trasformata Totale (kg)</label>
-               <input type="number" class="form-control calculated-field" id="trasformata-totale" readonly>
-           </div>
-           <div class="col-md-4">
-               <label for="giacenza-totale" class="form-label">Giacenza Totale (kg)</label>
-               <input type="number" class="form-control calculated-field" id="giacenza-totale" readonly>
-           </div>
-       </div>
-   </div>
+  <!-- Sezione Totali -->
+  <div class="section-card">
+      <h3 class="section-title"><i class="bi bi-boxes"></i> Quantità Totali</h3>
+      <div class="row">
+          <div class="col-md-4">
+              <label for="entrata-giornaliera" class="form-label">Entrata Giornaliera Totale (kg)</label>
+              <input type="number" class="form-control calculated-field" id="entrata-giornaliera" readonly>
+          </div>
+          <div class="col-md-4">
+              <label for="trasformata-totale" class="form-label">Quantità trasformata Totale (kg)</label>
+              <input type="number" class="form-control calculated-field" id="trasformata-totale" readonly>
+          </div>
+          <div class="col-md-4">
+              <label for="giacenza-totale" class="form-label">Giacenza Totale (kg)</label>
+              <input type="number" class="form-control calculated-field" id="giacenza-totale" readonly>
+          </div>
+      </div>
+  </div>
 
-   <!-- Sezione Fornitori -->
-   <div class="section-card">
-       <h3 class="section-title"><i class="bi bi-truck"></i> Dettagli Fornitori e Lavorazione</h3>
-       <div class="alert alert-info">
-           <i class="bi bi-info-circle"></i> Aggiungi i fornitori e configura i parametri di lavorazione per ciascuno. L'orario di fine verrà calcolato automaticamente.
-       </div>
-       
-       <div id="fornitori-container">
-           <!-- I fornitori verranno aggiunti dinamicamente qui -->
-       </div>
-       
-       <button type="button" class="btn btn-primary" id="aggiungi-fornitore">
-           <i class="bi bi-plus-circle"></i> Aggiungi Fornitore
-       </button>
-   </div>
+  <!-- Sezione Fornitori -->
+  <div class="section-card">
+      <h3 class="section-title"><i class="bi bi-truck"></i> Dettagli Fornitori e Lavorazione</h3>
+      <div class="alert alert-info">
+          <i class="bi bi-info-circle"></i> Aggiungi i fornitori e configura i parametri di lavorazione per ciascuno. L'orario di fine verrà calcolato automaticamente.
+      </div>
+      
+      <div id="fornitori-container">
+          <!-- I fornitori verranno aggiunti dinamicamente qui -->
+      </div>
+      
+      <button type="button" class="btn btn-primary" id="aggiungi-fornitore">
+          <i class="bi bi-plus-circle"></i> Aggiungi Fornitore
+      </button>
+  </div>
 
-   <!-- Sezione Selezione Combinazioni Fornitori (mostrata solo dopo aggiunta fornitori) -->
-   <div id="combinazioni-section" class="section-card hidden-field">
-       <h3 class="section-title"><i class="bi bi-diagram-3"></i> Selezione Combinazioni Fornitori</h3>
-       <div class="supplier-selection">
-           <div class="row">
-               <div class="col-md-12">
-                   <label class="form-label">Seleziona Fornitori da Combinare per Succo 1ª (fino a 3 fornitori)</label>
-                   <select class="form-select" id="combinazione-fornitori">
-                       <option value="">Seleziona combinazione</option>
-                       <!-- Opzioni generate dinamicamente -->
-                   </select>
-                   <div class="mt-3">
-                       <button type="button" class="btn btn-success me-2" id="applica-combinazione">
-                           <i class="bi bi-check-circle"></i> Applica Combinazione
-                       </button>
-                       <button type="button" class="btn btn-warning" id="reset-combinazione">
-                           <i class="bi bi-x-circle"></i> Reset Combinazione
-                       </button>
-                       <small class="text-muted d-block mt-2">
-                           Il risultato sostituirà la quantità succo 1ª nell'ultimo fornitore incluso nella combinazione
-                       </small>
-                   </div>
-               </div>
-           </div>
-       </div>
-   </div>
+  <!-- Sezione Selezione Combinazioni Fornitori (mostrata solo dopo aggiunta fornitori) -->
+  <div id="combinazioni-section" class="section-card hidden-field">
+      <h3 class="section-title"><i class="bi bi-diagram-3"></i> Selezione Combinazioni Fornitori</h3>
+      <div class="supplier-selection">
+          <div class="row">
+              <div class="col-md-12">
+                  <label class="form-label">Seleziona Fornitori da Combinare per Succo 1ª (fino a 3 fornitori)</label>
+                  <select class="form-select" id="combinazione-fornitori">
+                      <option value="">Seleziona combinazione</option>
+                      <!-- Opzioni generate dinamicamente -->
+                  </select>
+                  <div class="mt-3">
+                      <button type="button" class="btn btn-success me-2" id="applica-combinazione">
+                          <i class="bi bi-check-circle"></i> Applica Combinazione
+                      </button>
+                      <button type="button" class="btn btn-warning" id="reset-combinazione">
+                          <i class="bi bi-x-circle"></i> Reset Combinazione
+                      </button>
+                      <small class="text-muted d-block mt-2">
+                          Il risultato sostituirà la quantità succo 1ª nell'ultimo fornitore incluso nella combinazione
+                      </small>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 
-   <!-- Sezione Riepilogo Lavorazione -->
-   <div class="section-card">
-       <h3 class="section-title"><i class="bi bi-graph-up"></i> Riepilogo Programma Lavorazione</h3>
-       <div class="table-responsive">
-           <table class="table table-hover" id="riepilogo-table">
-               <thead>
-                   <tr>
-                       <th>Fornitore</th>
-                       <th>Q. Entrata (kg)</th>
-                       <th>Q. Da trasformare (kg)</th>
-                       <th>Giacenza (kg)</th>
-                       <th>Certificazione</th>
-                       <th>Varietà</th>
-                       <th>Linea</th>
-                       <th>Portata</th>
-                       <th>Inizio</th>
-                       <th>Fine</th>
-                       <th>Durata</th>
-                       <th>Dest.</th>
-                       <th>Bio</th>
-                       <th>Azioni</th>
-                   </tr>
-               </thead>
-               <tbody>
-                   <!-- Dati caricati dinamicamente -->
-               </tbody>
-           </table>
-       </div>
-   </div>
+  <!-- Sezione Riepilogo Lavorazione -->
+  <div class="section-card">
+      <h3 class="section-title"><i class="bi bi-graph-up"></i> Riepilogo Programma Lavorazione</h3>
+      <div class="table-responsive">
+          <table class="table table-hover" id="riepilogo-table">
+              <thead>
+                  <tr>
+                      <th>Fornitore</th>
+                      <th>Q. Entrata (kg)</th>
+                      <th>Q. Da trasformare (kg)</th>
+                      <th>Giacenza (kg)</th>
+                      <th>Certificazione</th>
+                      <th>Varietà</th>
+                      <th>Linea</th>
+                      <th>Portata</th>
+                      <th>Inizio</th>
+                      <th>Fine</th>
+                      <th>Durata</th>
+                      <th>Dest.</th>
+                      <th>Bio</th>
+                      <th>Azioni</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <!-- Dati caricati dinamicamente -->
+              </tbody>
+          </table>
+      </div>
+  </div>
 
-   <!-- Pulsanti di azione -->
-   <div class="section-card text-center">
-       <button type="button" class="btn btn-primary btn-lg me-3" id="salva-programma">
-           <i class="bi bi-save"></i> Salva Programma
-       </button>
-       <button type="button" class="btn btn-outline-secondary btn-lg me-3" id="anteprima-stampa">
-           <i class="bi bi-printer"></i> Anteprima Stampa
-       </button>
-       <button type="button" class="btn btn-info btn-lg me-3" id="apri-statistiche">
-           <i class="bi bi-bar-chart-line"></i> Statistiche Interattive
-       </button>
-       <button type="button" class="btn btn-outline-danger btn-lg" id="reset-programma">
-           <i class="bi bi-arrow-clockwise"></i> Reset Programma
-       </button>
-   </div>
+  <!-- Pulsanti di azione -->
+  <div class="section-card text-center">
+      <button type="button" class="btn btn-primary btn-lg me-3" id="salva-programma">
+          <i class="bi bi-save"></i> Salva Programma
+      </button>
+      <button type="button" class="btn btn-outline-secondary btn-lg me-3" id="anteprima-stampa">
+          <i class="bi bi-printer"></i> Anteprima Stampa
+      </button>
+      <button type="button" class="btn btn-info btn-lg me-3" id="apri-statistiche">
+          <i class="bi bi-bar-chart-line"></i> Statistiche Interattive
+      </button>
+      <button type="button" class="btn btn-outline-danger btn-lg" id="reset-programma">
+          <i class="bi bi-arrow-clockwise"></i> Reset Programma
+      </button>
+  </div>
 </div>
 
 <!-- Modal Statistiche -->
 <div id="stats-modal" class="stats-modal">
-   <div class="stats-content">
-       <div class="stats-header">
-           <h2><i class="bi bi-bar-chart-line"></i> Statistiche Interattive Produzione</h2>
-           <span class="close-stats">&times;</span>
-       </div>
-       
-       <div class="stats-summary" id="stats-summary">
-           <!-- Sommario statistiche caricate dinamicamente -->
-       </div>
-       
-       <div class="stats-grid">
-           <div class="stats-card">
-               <h4>Distribuzione Produzione per Fornitore</h4>
-               <div class="chart-container">
-                   <canvas id="chartFornitori"></canvas>
-               </div>
-           </div>
-           
-           <div class="stats-card">
-               <h4>Rese Medie per Tipo Prodotto</h4>
-               <div class="chart-container">
-                   <canvas id="chartRese"></canvas>
-               </div>
-           </div>
-           
-           <div class="stats-card">
-               <h4>Distribuzione Certificazioni</h4>
-               <div class="chart-container">
-                   <canvas id="chartCertificazioni"></canvas>
-               </div>
-           </div>
-           
-           <div class="stats-card">
-               <h4>Timeline Produzione</h4>
-               <div class="chart-container">
-                   <canvas id="chartTimeline"></canvas>
-               </div>
-           </div>
-           
-           <div class="stats-card">
-               <h4>Efficienza Linee di Produzione</h4>
-               <div class="chart-container">
-                   <canvas id="chartEfficienza"></canvas>
-               </div>
-           </div>
-           
-           <div class="stats-card">
-               <h4>Analisi Destinazioni Prodotti</h4>
-               <div class="chart-container">
-                   <canvas id="chartDestinazioni"></canvas>
-               </div>
-           </div>
-       </div>
-   </div>
+  <div class="stats-content">
+      <div class="stats-header">
+          <h2><i class="bi bi-bar-chart-line"></i> Statistiche Interattive Produzione</h2>
+          <span class="close-stats">&times;</span>
+      </div>
+      
+      <div class="stats-summary" id="stats-summary">
+          <!-- Sommario statistiche caricate dinamicamente -->
+      </div>
+      
+      <div class="stats-grid">
+          <div class="stats-card">
+              <h4>Distribuzione Produzione per Fornitore</h4>
+              <div class="chart-container">
+                  <canvas id="chartFornitori"></canvas>
+              </div>
+          </div>
+          
+          <div class="stats-card">
+              <h4>Rese Medie per Tipo Prodotto</h4>
+              <div class="chart-container">
+                  <canvas id="chartRese"></canvas>
+              </div>
+          </div>
+          
+          <div class="stats-card">
+              <h4>Distribuzione Certificazioni</h4>
+              <div class="chart-container">
+                  <canvas id="chartCertificazioni"></canvas>
+              </div>
+          </div>
+          
+          <div class="stats-card">
+              <h4>Timeline Produzione</h4>
+              <div class="chart-container">
+                  <canvas id="chartTimeline"></canvas>
+              </div>
+          </div>
+          
+          <div class="stats-card">
+              <h4>Efficienza Linee di Produzione</h4>
+              <div class="chart-container">
+                  <canvas id="chartEfficienza"></canvas>
+              </div>
+          </div>
+          
+          <div class="stats-card">
+              <h4>Analisi Destinazioni Prodotti</h4>
+              <div class="chart-container">
+                  <canvas id="chartDestinazioni"></canvas>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
 
 <!-- Template per fornitore -->
 <div id="fornitore-template" class="hidden-field">
-   <div class="supplier-row" data-supplier-index="">
-       <div class="d-flex justify-content-between align-items-center mb-3">
-           <h5><i class="bi bi-building"></i> Fornitore <span class="supplier-number"></span></h5>
-           <button type="button" class="btn btn-outline-danger btn-sm rimuovi-fornitore">
-               <i class="bi bi-trash"></i> Rimuovi
-           </button>
-       </div>
-       
-       <div class="row g-3">
-           <!-- Dati base fornitore -->
-           <div class="col-md-3">
-               <label class="form-label">Nome Fornitore</label>
-               <select class="form-select nome-fornitore" required>
-                   <option value="">Seleziona fornitore</option>
-                   <option value="RESTUCCIA">RESTUCCIA</option>
-                   <option value="CI">CI</option>
-                   <option value="ARCO">ARCO</option>
-                   <option value="GIOVINAZZO">GIOVINAZZO</option>
-                   <option value="AZ.T.C.">AZ.T.C.</option>
-                   <option value="VASTA">VASTA</option>
-                   <option value="ALTRO">ALTRO</option>
-               </select>
-               <input type="text" class="form-control mt-2 altro-fornitore hidden-field" placeholder="Specifica altro fornitore">
-           </div>
-           
-           <div class="col-md-3">
-               <label class="form-label">Quantità in Entrata (kg)</label>
-               <input type="number" class="form-control quantita-fornitore" min="0" required>
-           </div>
-           
-           <div class="col-md-3">
-               <label class="form-label">Quantità trasformata (kg)</label>
-               <input type="number" class="form-control quantita-trasformata" min="0" placeholder="0">
-           </div>
-           
-           <div class="col-md-3">
-               <label class="form-label">Giacenza (kg)</label>
-               <input type="number" class="form-control calculated-field giacenza-fornitore" readonly>
-           </div>
-           
-           <div class="col-md-4">
-               <label class="form-label">Certificazione Prodotto</label>
-               <select class="form-select certificazione-prodotto" required>
-                   <option value="">Seleziona certificazione</option>
-                   <option value="BIO EU">BIO EU</option>
-                   <option value="BIO DEM">BIO DEM</option>
-                   <option value="BIO NTD">BIO NTD</option>
-                   <option value="BIO DEM/NTD">BIO DEM/NTD</option>
-                   <option value="TRACCIATO">TRACCIATO</option>
-                   <option value="IGP">IGP</option>
-                   <option value="CONVENZIONALE">CONVENZIONALE</option>
-                   <option value="ALTRO">ALTRO</option>
-               </select>
-               <input type="text" class="form-control mt-2 altra-certificazione hidden-field" placeholder="Specifica altra certificazione">
-           </div>
-           
-           <div class="col-md-4">
-               <label class="form-label">Varietà</label>
-               <select class="form-select varieta-prodotto" required>
-                   <option value="">Seleziona varietà</option>
-                   <option value="VERDELLO">Verdello</option>
-                   <option value="BIANCHETTO">Bianchetto</option>
-                   <option value="FEMMINELLO">Femminello</option>
-                   <option value="INTERDONATO">Interdonato</option>
-                   <option value="MONACHELLO">Monachello</option>
-                   <option value="DI SIRACUSA">Di Siracusa</option>
-                   <option value="ALTRO">Altro</option>
-               </select>
-               <input type="text" class="form-control mt-2 altra-varieta hidden-field" placeholder="Specifica altra varietà">
-           </div>
-           
-           <!-- Parametri lavorazione -->
-           <div class="col-md-4">
-               <label class="form-label">Linea di Trasformazione</label>
-               <select class="form-select linea-trasformazione" required>
-                   <option value="">Seleziona linea</option>
-                   <option value="BOE/1100">BOE/1100</option>
-                   <option value="GOE INT/POLY">GOE INT/POLY</option>
-                   <option value="GOE EST/POLY">GOE EST/POLY</option>
-                   <option value="GOE EST/400">GOE EST/400</option>
-                   <option value="B/SF">B/SF</option>
-                   <option value="TORCHI FASO">TORCHI FASO</option>
-               </select>
-           </div>
-           
-           <div class="col-md-6">
-               <label class="form-label">Portata Impianto (kg/h)</label>
-               <input type="number" class="form-control portata-impianto" min="100" max="5000" required>
-           </div>
-           
-           <div class="col-md-6">
-               <label class="form-label">Orario Inizio Lavorazione stimato</label>
-               <input type="time" class="form-control orario-inizio" required>
-           </div>
-           
-           <div class="col-md-6">
-               <label class="form-label">Orario Fine Lavorazione stimato</label>
-               <div class="orario-fine-display calculated-field form-control"></div>
-           </div>
-           
-           <div class="col-md-6">
-               <label class="form-label">Durata Lavorazione stimata</label>
-               <input type="text" class="form-control calculated-field durata-lavorazione" readonly>
-           </div>
-       </div>
-       
-       <!-- Sezione Rese e Destinazioni -->
-       <div class="mt-4">
-           <h6><i class="bi bi-droplet"></i> Calcolo Rese e Destinazioni Spremiture</h6>
-           
-           <div class="row g-3 mt-2">
-               <!-- Rese percentuali -->
-               <div class="col-md-4">
-                   <label class="form-label">Resa Succo 1ª (%)</label>
-                   <input type="number" class="form-control resa-prima" step="0.1" min="0" max="100" placeholder="Auto">
-               </div>
-               
-               <div class="col-md-4 seconda-section">
-                   <label class="form-label">Resa Succo 2ª (%)</label>
-                   <input type="number" class="form-control resa-seconda" step="0.1" min="0" max="100" placeholder="Auto">
-               </div>
-               
-               <div class="col-md-4">
-                   <label class="form-label">Resa Torchiato (%)</label>
-                   <input type="number" class="form-control resa-torchiato" step="0.1" min="0" max="100" placeholder="Auto">
-               </div>
-           </div>
-           
-           <!-- Risultati calcolo rese in kg -->
-           <div class="row g-3 mt-2">
-               <div class="col-md-4">
-                   <label class="form-label">Quantità Succo 1ª (kg)</label>
-                   <input type="number" class="form-control yield-result quantita-prima" readonly>
-               </div>
-               
-               <div class="col-md-4 seconda-section">
-                   <label class="form-label">Quantità Succo 2ª (kg)</label>
-                   <input type="number" class="form-control yield-result quantita-seconda" readonly>
-                   <div class="sum-details seconda-details"></div>
-               </div>
-               
-               <div class="col-md-4">
-                   <label class="form-label">Quantità Torchiato (kg)</label>
-                   <input type="number" class="form-control yield-result quantita-torchiato" readonly>
-                   <div class="sum-details torchiato-details"></div>
-               </div>
-           </div>
-           
-           <!-- Destinazioni spremiture -->
-           <div class="row g-3 mt-3">
-               <div class="col-md-4">
-                   <label class="form-label destinazione-prima-label">Destinazione Succo 1ª</label>
-                   <select class="form-select destinazione-prima" multiple>
-                       <option value="NAT IN TINI">NAT IN TINI</option>
-                       <option value="PET 100">PET 100</option>
-                       <option value="PET 200">PET 200</option>
-                       <option value="PET 480">PET 480</option>
+  <div class="supplier-row" data-supplier-index="">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5><i class="bi bi-building"></i> Fornitore <span class="supplier-number"></span></h5>
+          <button type="button" class="btn btn-outline-danger btn-sm rimuovi-fornitore">
+              <i class="bi bi-trash"></i> Rimuovi
+          </button>
+      </div>
+      
+      <div class="row g-3">
+          <!-- Dati base fornitore -->
+          <div class="col-md-3">
+              <label class="form-label">Nome Fornitore</label>
+              <select class="form-select nome-fornitore" required>
+                  <option value="">Seleziona fornitore</option>
+                  <option value="RESTUCCIA">RESTUCCIA</option>
+                  <option value="CI">CI</option>
+                  <option value="ARCO">ARCO</option>
+                  <option value="GIOVINAZZO">GIOVINAZZO</option>
+                  <option value="AZ.T.C.">AZ.T.C.</option>
+                  <option value="VASTA">VASTA</option>
+                  <option value="ALTRO">ALTRO</option>
+              </select>
+              <input type="text" class="form-control mt-2 altro-fornitore hidden-field" placeholder="Specifica altro fornitore">
+          </div>
+          
+          <div class="col-md-3">
+              <label class="form-label">Quantità in Entrata (kg)</label>
+              <input type="number" class="form-control quantita-fornitore" min="0" required>
+          </div>
+          
+          <div class="col-md-3">
+              <label class="form-label">Quantità trasformata (kg)</label>
+              <input type="number" class="form-control quantita-trasformata" min="0" placeholder="0">
+          </div>
+          
+          <div class="col-md-3">
+              <label class="form-label">Giacenza (kg)</label>
+              <input type="number" class="form-control calculated-field giacenza-fornitore" readonly>
+          </div>
+          
+          <div class="col-md-4">
+              <label class="form-label">Certificazione Prodotto</label>
+              <select class="form-select certificazione-prodotto" required>
+                  <option value="">Seleziona certificazione</option>
+                  <option value="BIO EU">BIO EU</option>
+                  <option value="BIO DEM">BIO DEM</option>
+                  <option value="BIO NTD">BIO NTD</option>
+                  <option value="BIO DEM/NTD">BIO DEM/NTD</option>
+                  <option value="TRACCIATO">TRACCIATO</option>
+                  <option value="IGP">IGP</option>
+                  <option value="CONVENZIONALE">CONVENZIONALE</option>
+                  <option value="ALTRO">ALTRO</option>
+              </select>
+              <input type="text" class="form-control mt-2 altra-certificazione hidden-field" placeholder="Specifica altra certificazione">
+          </div>
+          
+          <div class="col-md-4">
+              <label class="form-label">Varietà</label>
+              <select class="form-select varieta-prodotto" required>
+                  <option value="">Seleziona varietà</option>
+                  <option value="VERDELLO">Verdello</option>
+                  <option value="BIANCHETTO">Bianchetto</option>
+                  <option value="FEMMINELLO">Femminello</option>
+                  <option value="INTERDONATO">Interdonato</option>
+                  <option value="MONACHELLO">Monachello</option>
+                  <option value="DI SIRACUSA">Di Siracusa</option>
+                  <option value="ALTRO">Altro</option>
+              </select>
+              <input type="text" class="form-control mt-2 altra-varieta hidden-field" placeholder="Specifica altra varietà">
+          </div>
+          
+          <!-- Parametri lavorazione -->
+          <div class="col-md-4">
+              <label class="form-label">Linea di Trasformazione</label>
+              <select class="form-select linea-trasformazione" required>
+                  <option value="">Seleziona linea</option>
+                  <option value="BOE/1100">BOE/1100</option>
+                  <option value="GOE INT/POLY">GOE INT/POLY</option>
+                  <option value="GOE EST/POLY">GOE EST/POLY</option>
+                  <option value="GOE EST/400">GOE EST/400</option>
+                  <option value="B/SF">B/SF</option>
+                  <option value="TORCHI FASO">TORCHI FASO</option>
+              </select>
+          </div>
+          
+          <div class="col-md-6">
+              <label class="form-label">Portata Impianto (kg/h)</label>
+              <input type="number" class="form-control portata-impianto" min="100" max="5000" required>
+          </div>
+          
+          <div class="col-md-6">
+              <label class="form-label">Orario Inizio Lavorazione stimato</label>
+              <input type="time" class="form-control orario-inizio" required>
+          </div>
+          
+          <div class="col-md-6">
+              <label class="form-label">Orario Fine Lavorazione stimato</label>
+              <div class="orario-fine-display calculated-field form-control"></div>
+          </div>
+          
+          <div class="col-md-6">
+              <label class="form-label">Durata Lavorazione stimata</label>
+              <input type="text" class="form-control calculated-field durata-lavorazione" readonly>
+          </div>
+      </div>
+      
+      <!-- Sezione Rese e Destinazioni -->
+      <div class="mt-4">
+          <h6><i class="bi bi-droplet"></i> Calcolo Rese e Destinazioni Spremiture</h6>
+          
+          <div class="row g-3 mt-2">
+              <!-- Rese percentuali -->
+              <div class="col-md-4">
+                  <label class="form-label">Resa Succo 1ª (%)</label>
+                  <input type="number" class="form-control resa-prima" step="0.1" min="0" max="100" placeholder="Auto">
+              </div>
+              
+              <div class="col-md-4 seconda-section">
+                  <label class="form-label">Resa Succo 2ª (%)</label>
+                  <input type="number" class="form-control resa-seconda" step="0.1" min="0" max="100" placeholder="Auto">
+              </div>
+              
+              <div class="col-md-4">
+                  <label class="form-label">Resa Torchiato (%)</label>
+                  <input type="number" class="form-control resa-torchiato" step="0.1" min="0" max="100" placeholder="Auto">
+              </div>
+          </div>
+          
+          <!-- Risultati calcolo rese in kg -->
+          <div class="row g-3 mt-2">
+              <div class="col-md-4">
+                  <label class="form-label">Quantità Succo 1ª (kg)</label>
+                  <input type="number" class="form-control yield-result quantita-prima" readonly>
+              </div>
+              
+              <div class="col-md-4 seconda-section">
+                  <label class="form-label">Quantità Succo 2ª (kg)</label>
+                  <input type="number" class="form-control yield-result quantita-seconda" readonly>
+                  <div class="sum-details seconda-details"></div>
+              </div>
+              
+              <div class="col-md-4">
+                  <label class="form-label">Quantità Torchiato (kg)</label>
+                  <input type="number" class="form-control yield-result quantita-torchiato" readonly>
+                  <div class="sum-details torchiato-details"></div>
+              </div>
+          </div>
+          
+          <!-- Destinazioni spremiture -->
+          <div class="row g-3 mt-3">
+              <div class="col-md-4">
+                  <label class="form-label destinazione-prima-label">Destinazione Succo 1ª</label>
+                  <select class="form-select destinazione-prima" multiple>
+                      <option value="NAT IN TINI">NAT IN TINI</option>
+                      <option value="PET 100">PET 100</option>
+                      <option value="PET 200">PET 200</option>
+                      <option value="PET 480">PET 480</option>
                       <option value="ACMA">ACMA</option>
                       <option value="REX">REX</option>
                       <option value="GOGLIO">GOGLIO</option>
@@ -1294,7 +1299,6 @@
              const quantitaPrimaField = lastSupplierInCombo.find('.quantita-prima');
              quantitaPrimaField.val(totale.toFixed(1));
              quantitaPrimaField.addClass('combination-result');
-             
              // Crea testo dettagliato della combinazione
              const detailedCombination = combinationDetails.map(detail => 
                  `F${detail.supplierIndex} - ${detail.nome} [${detail.certificazione}|${detail.linea}] = ${detail.risultato}kg`
@@ -1723,14 +1727,77 @@
          updateCombinazioneOptions();
      }
      
-     // Aggiornamento tabella riepilogo - MODIFICATA per gestire combinazioni
+     // Aggiornamento tabella riepilogo - MODIFICATA per gestire combinazioni e sezione gialla
      function updateSummaryTable() {
          const tableBody = $('#riepilogo-table tbody');
          tableBody.empty();
          
-         // Processa i fornitori considerando le combinazioni
-         const processedSuppliers = new Set();
+         // Prima aggiungi le righe individuali dei fornitori in combinazione (sezione gialla)
+         if (combinationDetails.length > 0) {
+             combinationDetails.forEach(detail => {
+                 const supplier = $(`[data-supplier-index="${detail.supplierIndex}"]`);
+                 if (supplier.length > 0) {
+                     const nomeVarieta = supplier.find('.varieta-prodotto').val() === 'ALTRO' ? 
+                         supplier.find('.altra-varieta').val() : supplier.find('.varieta-prodotto').val();
+                     
+                     const isBioSpecific = ['BIO EU', 'BIO DEM', 'BIO NTD', 'BIO DEM/NTD'].includes(detail.certificazione);
+                     const bioStatus = supplier.find('.bio-prima').val() || 'N/D';
+                     const isDeclassatoOrNo = bioStatus === 'DECLASSATO' || bioStatus === 'NO';
+                     
+                     const bioClass = isBioSpecific && !isDeclassatoOrNo ? 'bio-red-text' : 
+                                      (isDeclassatoOrNo ? 'bio-black-text' : '');
+                     
+                     const orarioFineClean = supplier.find('.orario-fine-display').html() ? 
+                         supplier.find('.orario-fine-display').html().replace(/<[^>]*>/g, '').replace('del giorno', 'g.') : '';
+                     
+                     // Gestione destinazioni
+                     const destinazioni = supplier.find('.destinazione-prima').val() || [];
+                     let destPrima = destinazioni.join(', ') || 'N/D';
+                     
+                     // Sostituisci "ALTRO" con il valore specifico se presente
+                     const altroDestPrima = supplier.find('.destinazione-prima').parent().find('.altra-destinazione').val();
+                     if (destPrima.includes('ALTRO') && altroDestPrima) {
+                         destPrima = destPrima.replace('ALTRO', altroDestPrima);
+                     }
+                     
+                     const certificationBadge = detail.certificazione.includes('BIO') ? 
+                         `<span class="bio-indicator">${detail.certificazione}</span>` : 
+                         detail.certificazione;
+                     
+                     // Colore rosso per "Dest." e "Bio" quando Bio = "SI"
+                     const destBioClass = bioStatus === 'SI' ? 'bio-red-text' : bioClass;
+                     
+                     const row = `
+                         <tr class="combination-individual-row">
+                             <td><strong>F${detail.supplierIndex} - ${detail.nome}</strong></td>
+                             <td><span class="badge bg-primary">${supplier.find('.quantita-fornitore').val() || 0} kg</span></td>
+                             <td><span class="badge bg-warning">${supplier.find('.quantita-trasformata').val() || 0} kg</span></td>
+                             <td><span class="badge bg-info">${supplier.find('.giacenza-fornitore').val() || 0} kg</span></td>
+                             <td class="${bioClass}">${certificationBadge}</td>
+                             <td class="${bioClass}">${nomeVarieta || 'N/D'}</td>
+                             <td class="${bioClass}"><code>${detail.linea}</code></td>
+                             <td>${supplier.find('.portata-impianto').val() || ''}</td>
+                             <td><span class="time-display">${supplier.find('.orario-inizio').val() || ''}</span></td>
+                             <td><span class="time-display">${orarioFineClean || ''}</span></td>
+                             <td>${supplier.find('.durata-lavorazione').val() || ''}</td>
+                             <td class="${destBioClass}" style="font-size: 12px;">${destPrima}</td>
+                             <td class="${destBioClass}">${bioStatus}</td>
+                             <td>
+                                 <button class="btn btn-sm btn-outline-primary edit-supplier" data-index="${detail.supplierIndex}">
+                                     <i class="bi bi-pencil"></i>
+                                 </button>
+                                 <button class="btn btn-sm btn-outline-danger delete-supplier" data-index="${detail.supplierIndex}">
+                                     <i class="bi bi-trash"></i>
+                                 </button>
+                             </td>
+                         </tr>
+                     `;
+                     tableBody.append(row);
+                 }
+             });
+         }
          
+         // Poi aggiungi le righe normali dei fornitori
          $('.supplier-row').each(function() {
              const supplierIndex = $(this).data('supplier-index');
              const fornitore = $(this).find('.nome-fornitore').val() || '';
@@ -1744,7 +1811,7 @@
              const hasCombination = $(this).find('.quantita-prima').hasClass('combination-result');
              
              if (isInCombination && !hasCombination) {
-                 // Fornitore che fa parte della combinazione ma non è quello che visualizza il risultato
+                 // Fornitore che fa parte della combinazione ma non è quello che visualizza il risultato - già mostrato sopra
                  return;
              }
              
@@ -1774,9 +1841,9 @@
                      certificazione: combinedCertificazioni,
                      varieta: combinedVarieta,
                      linea: combinedLinee,
-                     portata: '', // Vuoto per combinazioni
-                     orarioInizio: '', // Vuoto per combinazioni
-                     orarioFine: '', // Vuoto per combinazioni
+                     portata: '', // Vuoto per combinazioni come richiesto
+                     orarioInizio: '', // Vuoto per combinazioni come richiesto
+                     orarioFine: '', // Vuoto per combinazioni come richiesto
                      durata: '',
                      isCombination: true,
                      supplierIndex: supplierIndex
@@ -1838,6 +1905,9 @@
              
              let rowClass = displayRow.isCombination ? 'combination-row' : '';
              
+             // Colore rosso per "Dest." e "Bio" quando Bio = "SI"
+             const destBioClass = bioStatus === 'SI' ? 'bio-red-text' : bioClass;
+             
              const row = `
                  <tr class="${rowClass}">
                      <td><strong>${displayRow.fornitore}</strong></td>
@@ -1851,8 +1921,8 @@
                      <td><span class="time-display">${displayRow.orarioInizio}</span></td>
                      <td><span class="time-display">${displayRow.orarioFine}</span></td>
                      <td>${displayRow.durata}</td>
-                     <td class="${bioClass && bioStatus === 'SI' ? 'bio-red-text' : ''}" style="font-size: 12px;">${destPrima}</td>
-                     <td class="${bioClass && bioStatus === 'SI' ? 'bio-red-text' : ''}">${bioStatus}</td>
+                     <td class="${destBioClass}" style="font-size: 12px;">${destPrima}</td>
+                     <td class="${destBioClass}">${bioStatus}</td>
                      <td>
                          <button class="btn btn-sm btn-outline-primary edit-supplier" data-index="${displayRow.supplierIndex}">
                              <i class="bi bi-pencil"></i>
@@ -2201,7 +2271,7 @@
          generateCompactPrintPreview(programData);
      });
      
-     // Generazione anteprima stampa compatta
+     // Generazione anteprima stampa compatta - MODIFICATA per la nuova struttura
      function generateCompactPrintPreview(data) {
          const printWindow = window.open('', '_blank');
          
@@ -2294,6 +2364,11 @@
                      .combination-group {
                          background-color: #fff3cd;
                          border: 2px solid #ffc107;
+                     }
+                     
+                     .combination-individual {
+                         background-color: #fff3cd;
+                         border: 1px solid #ffc107;
                      }
                      
                      .combination-header {
@@ -2422,7 +2497,7 @@
                      <tbody>
          `;
          
-         // Sezione combinazioni se presenti
+         // Sezione combinazioni se presenti - con righe individuali
          if (data.combinationDetails && data.combinationDetails.length > 0) {
              printContent += `
                  <tr class="combination-header">
@@ -2430,9 +2505,8 @@
                  </tr>
              `;
              
-             // Genera righe per ogni fornitore nella combinazione CON TUTTI I DATI
+             // Prima aggiungi le righe individuali dei fornitori in combinazione
              data.combinationDetails.forEach((detail) => {
-                 // Trova il fornitore corrispondente nei dati completi
                  const fullSupplierData = data.fornitori.find(f => f.supplierIndex === detail.supplierIndex);
                  
                  if (fullSupplierData) {
@@ -2446,7 +2520,6 @@
                      const orarioFineClean = fullSupplierData.orarioFineDisplay ? 
                          fullSupplierData.orarioFineDisplay.replace(/<[^>]*>/g, '').replace('del giorno', 'g.') : '';
                      
-                     // Gestione destinazioni con "ALTRO"
                      let destPrima = fullSupplierData.destinazioni.prima ? fullSupplierData.destinazioni.prima : 'N/D';
                      if (destPrima.includes('ALTRO') && fullSupplierData.destinazioni.primaAltro) {
                          destPrima = destPrima.replace('ALTRO', fullSupplierData.destinazioni.primaAltro);
@@ -2460,20 +2533,19 @@
                      const conservato = fullSupplierData.caratteristicheProdotti?.prima?.conservato || 'N/D';
                      const pastorizzato = fullSupplierData.caratteristicheProdotti?.prima?.pastorizzato || 'N/D';
                      
-                     // Colore rosso per "Dest." e "Bio" quando Bio = "SI"
                      const destBioClass = bioStatus === 'SI' ? 'bio-cell' : bioClass;
                      
                      printContent += `
-                         <tr class="combination-group">
+                         <tr class="combination-individual">
                              <td><strong>F${detail.supplierIndex} - ${detail.nome}</strong></td>
                              <td>${fullSupplierData.quantitaEntrata}</td>
                              <td>${fullSupplierData.giacenza}</td>
                              <td class="${bioClass}">${fullSupplierData.certificazione}</td>
                              <td class="${bioClass}">${nomeVarieta || 'N/D'}</td>
                              <td class="${bioClass}">${fullSupplierData.lineaTrasformazione}</td>
-                             <td></td>
-                             <td></td>
-                             <td></td>
+                             <td>${fullSupplierData.portataImpianto}</td>
+                             <td>${fullSupplierData.orarioInizio || '-'}</td>
+                             <td style="font-size: 7px;">${orarioFineClean || '-'}</td>
                              <td><strong>${detail.risultato}</strong></td>
                              <td>${pastorizzato}</td>
                              <td class="${destBioClass}" style="font-size: 7px;">${destPrima}</td>
@@ -2486,13 +2558,27 @@
                  }
              });
              
-             // Riga totale combinazione
+             // Poi aggiungi la riga totale combinazione
              const totaleCombinazione = data.combinationDetails.reduce((sum, detail) => sum + parseFloat(detail.risultato), 0);
-             
-             // Trova l'ultimo fornitore nella combinazione per prendere i suoi dati
              const lastCombinationSupplier = data.fornitori.find(f => f.hasCombination);
+             
              if (lastCombinationSupplier) {
-                 const pastorizzatoTotale = lastCombinationSupplier.caratteristicheProdotti?.prima?.pastorizzato || 'N/D';
+                 const combinedNames = data.combinationDetails.map(d => `F${d.supplierIndex} - ${d.nome}`).join(' + ');
+                 const combinedQuantitaEntrata = data.combinationDetails.map(d => {
+                     const supplier = data.fornitori.find(f => f.supplierIndex === d.supplierIndex);
+                     return supplier ? supplier.quantitaEntrata : 0;
+                 }).join(' + ');
+                 const combinedCertificazioni = data.combinationDetails.map(d => d.certificazione).join(' + ');
+                 const combinedVarieta = data.combinationDetails.map(d => {
+                     const supplier = data.fornitori.find(f => f.supplierIndex === d.supplierIndex);
+                     if (supplier) {
+                         const varieta = supplier.varieta === 'ALTRO' ? supplier.altraVarieta : supplier.varieta;
+                         return varieta || 'N/D';
+                     }
+                     return 'N/D';
+                 }).join(' + ');
+                 const combinedLinee = data.combinationDetails.map(d => d.linea).join(' + ');
+               const pastorizzatoTotale = lastCombinationSupplier.caratteristicheProdotti?.prima?.pastorizzato || 'N/D';
                  const polpaTotale = lastCombinationSupplier.caratteristicheProdotti?.prima?.tenorePolpa || 'N/D';
                  const brixTotale = lastCombinationSupplier.caratteristicheProdotti?.prima?.brix || 'N/D';
                  const conservatoTotale = lastCombinationSupplier.caratteristicheProdotti?.prima?.conservato || 'N/D';
@@ -2506,13 +2592,20 @@
                      d.replace('CONCENTRATO', 'CONC').replace('NAT IN TINI', 'TINI')
                  ).join(',');
                  
-                 // Colore rosso per "Dest." e "Bio" quando Bio = "SI"
                  const destBioClass = bioTotale === 'SI' ? 'bio-cell' : '';
                  
                  printContent += `
                      <tr class="combination-group">
-                         <td colspan="9"><strong>TOTALE COMBINAZIONE</strong></td>
-                         <td><strong>${totaleCombinazione.toFixed(1)}</strong></td>
+                         <td><strong>${combinedNames}</strong></td>
+                         <td>${combinedQuantitaEntrata}</td>
+                         <td>${lastCombinationSupplier.giacenza}</td>
+                         <td>${combinedCertificazioni}</td>
+                         <td>${combinedVarieta}</td>
+                         <td>${combinedLinee}</td>
+                         <td></td>
+                         <td></td>
+                         <td></td>
+                         <td><strong>${totaleCombinazione.toFixed(1)} (C)</strong></td>
                          <td>${pastorizzatoTotale}</td>
                          <td class="${destBioClass}" style="font-size: 7px;">${destTotale}</td>
                          <td>${polpaTotale}</td>
@@ -2524,17 +2617,20 @@
              }
          }
          
-         // Genera righe fornitori normali - CORRETTA per evitare ripetizioni
+         // Genera righe fornitori normali - evitando ripetizioni
          data.fornitori.forEach((fornitore) => {
-             if (!fornitore.nome) return; // Salta fornitori senza nome
+             if (!fornitore.nome) return;
              
-             // Controlla se questo fornitore fa parte della combinazione
              const isInCombination = data.combinationSupplierIndexes && 
                  data.combinationSupplierIndexes.includes(fornitore.supplierIndex);
              
-             // Se fa parte della combinazione, mostra solo se ha il valore combinato (è l'ultimo)
-             // Altrimenti non fa parte della combinazione, quindi mostralo sempre
+             // Se non fa parte di una combinazione, o se fa parte di una combinazione ma è l'ultimo (quello con il risultato)
              if (!isInCombination || fornitore.hasCombination) {
+                 // Se ha combinazione, salta perché è già stato mostrato sopra
+                 if (fornitore.hasCombination) {
+                     return;
+                 }
+                 
                  const nomeFornitore = fornitore.nome === 'ALTRO' ? fornitore.altroNome : fornitore.nome;
                  const nomeVarieta = fornitore.varieta === 'ALTRO' ? fornitore.altraVarieta : fornitore.varieta;
                  const isBioSpecific = ['BIO EU', 'BIO DEM', 'BIO NTD', 'BIO DEM/NTD'].includes(fornitore.certificazione);
@@ -2546,7 +2642,6 @@
                  const orarioFineClean = fornitore.orarioFineDisplay ? 
                      fornitore.orarioFineDisplay.replace(/<[^>]*>/g, '').replace('del giorno', 'g.') : '';
                  
-                 // Gestione destinazioni con "ALTRO"
                  let destPrima = fornitore.destinazioni.prima ? fornitore.destinazioni.prima : 'N/D';
                  if (destPrima.includes('ALTRO') && fornitore.destinazioni.primaAltro) {
                      destPrima = destPrima.replace('ALTRO', fornitore.destinazioni.primaAltro);
@@ -2560,59 +2655,20 @@
                  const conservato = fornitore.caratteristicheProdotti?.prima?.conservato || 'N/D';
                  const pastorizzato = fornitore.caratteristicheProdotti?.prima?.pastorizzato || 'N/D';
                  
-                 // Nome da visualizzare: se ha combinazione, mostra i nomi dei fornitori combinati
-                 let displayName = `F${fornitore.supplierIndex} - ${nomeFornitore || 'N/D'}`;
-                 let displayQuantitaEntrata = fornitore.quantitaEntrata;
-                 let displayCertificazione = fornitore.certificazione;
-                 let displayVarieta = nomeVarieta;
-                 let displayLinea = fornitore.lineaTrasformazione;
-                 let displayPortata = fornitore.portataImpianto;
-                 let displayOrarioInizio = fornitore.orarioInizio;
-                 let displayOrarioFine = orarioFineClean;
-                 
-                 if (fornitore.hasCombination && data.combinationDetails && data.combinationDetails.length > 0) {
-                     // Dati combinati per riga di combinazione
-                     const combinedNames = data.combinationDetails.map(detail => `F${detail.supplierIndex} - ${detail.nome}`).join(' + ');
-                     const combinedQuantitaEntrata = data.combinationDetails.map(detail => {
-                         const supplier = data.fornitori.find(f => f.supplierIndex === detail.supplierIndex);
-                         return supplier ? supplier.quantitaEntrata : 0;
-                     }).join(' + ');
-                     const combinedCertificazioni = data.combinationDetails.map(detail => detail.certificazione).join(' + ');
-                     const combinedVarieta = data.combinationDetails.map(detail => {
-                         const supplier = data.fornitori.find(f => f.supplierIndex === detail.supplierIndex);
-                         if (supplier) {
-                             const varieta = supplier.varieta === 'ALTRO' ? supplier.altraVarieta : supplier.varieta;
-                             return varieta || 'N/D';
-                         }
-                         return 'N/D';
-                     }).join(' + ');
-                     const combinedLinee = data.combinationDetails.map(detail => detail.linea).join(' + ');
-                     
-                     displayName = combinedNames;
-                     displayQuantitaEntrata = combinedQuantitaEntrata;
-                     displayCertificazione = combinedCertificazioni;
-                     displayVarieta = combinedVarieta;
-                     displayLinea = combinedLinee;
-                     displayPortata = ''; // Vuoto per combinazioni
-                     displayOrarioInizio = ''; // Vuoto per combinazioni
-                     displayOrarioFine = ''; // Vuoto per combinazioni
-                 }
-                 
-                 // Colore rosso per "Dest." e "Bio" quando Bio = "SI"
                  const destBioClass = bioStatus === 'SI' ? 'bio-cell' : bioClass;
                  
                  printContent += `
                      <tr>
-                         <td><strong>${displayName}</strong></td>
-                         <td>${displayQuantitaEntrata}</td>
+                         <td><strong>F${fornitore.supplierIndex} - ${nomeFornitore || 'N/D'}</strong></td>
+                         <td>${fornitore.quantitaEntrata}</td>
                          <td>${fornitore.giacenza}</td>
-                         <td class="${bioClass}">${displayCertificazione || 'N/D'}</td>
-                         <td class="${bioClass}">${displayVarieta || 'N/D'}</td>
-                         <td class="${bioClass}">${displayLinea || 'N/D'}</td>
-                         <td>${displayPortata}</td>
-                         <td>${displayOrarioInizio || '-'}</td>
-                         <td style="font-size: 7px;">${displayOrarioFine || '-'}</td>
-                         <td><strong>${fornitore.quantitaProdotti.prima}${fornitore.hasCombination ? ' (C)' : ''}</strong></td>
+                         <td class="${bioClass}">${fornitore.certificazione || 'N/D'}</td>
+                         <td class="${bioClass}">${nomeVarieta || 'N/D'}</td>
+                         <td class="${bioClass}">${fornitore.lineaTrasformazione || 'N/D'}</td>
+                         <td>${fornitore.portataImpianto}</td>
+                         <td>${fornitore.orarioInizio || '-'}</td>
+                         <td style="font-size: 7px;">${orarioFineClean || '-'}</td>
+                         <td><strong>${fornitore.quantitaProdotti.prima}</strong></td>
                          <td>${pastorizzato}</td>
                          <td class="${destBioClass}" style="font-size: 7px;">${destPrima}</td>
                          <td>${polpa}</td>
@@ -2642,7 +2698,6 @@
          
          // Sezione riepilogo
          if (totalSeconda > 0 && lastValidSupplierBOE) {
-             // Gestione destinazioni per sezioni riepilogo
              let destSeconda = lastValidSupplierBOE.destinazioni.seconda || 'N/D';
              if (destSeconda === 'ALTRO' && lastValidSupplierBOE.destinazioni.secondaAltro) {
                  destSeconda = lastValidSupplierBOE.destinazioni.secondaAltro;
@@ -2720,7 +2775,6 @@
                      </div>
              `;
          } else {
-             // Solo sezione torchiato se non ci sono linee BOE/1100
              let destTorchiato = 'N/D';
              if (lastValidSupplier) {
                  destTorchiato = lastValidSupplier.destinazioni.torchiato || 'N/D';
